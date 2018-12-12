@@ -565,6 +565,11 @@ open class SVGParser {
 
     fileprivate func getFillColor(_ styleParts: [String: String], groupStyle: [String: String] = [:]) -> Fill? {
         var opacity: Double = 1
+
+        if let elementOpacity = styleParts["opacity"] {
+            opacity = Double(elementOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
+        }
+
         if let fillOpacity = styleParts["fill-opacity"] {
             opacity = Double(fillOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
         }
@@ -590,6 +595,10 @@ open class SVGParser {
             strokeColor = currentColor
         }
         var opacity: Double = 1
+
+        if let elementOpacity = styleParts["opacity"] {
+            opacity = Double(elementOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
+        }
         if let strokeOpacity = styleParts["stroke-opacity"] {
             opacity = Double(strokeOpacity.replacingOccurrences(of: " ", with: "")) ?? 1
             opacity = min(max(opacity, 0), 1)
